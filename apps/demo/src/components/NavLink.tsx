@@ -9,7 +9,7 @@ interface NavLinkCompatProps {
   to: string;
   className?: string;
   activeClassName?: string;
-  pendingClassName?: string; // Next.js'te pending yok ama bozmuyorum
+  pendingClassName?: string; // API bozulmasın diye tutuluyor
   children?: React.ReactNode;
 }
 
@@ -17,8 +17,11 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkCompatProps>(
   ({ to, className, activeClassName, pendingClassName, children }, ref) => {
     const pathname = usePathname();
 
+    // react-router-dom'un active mantığı korunuyor
     const isActive = pathname === to;
-    const isPending = false; // Next.js desteklemez ama prop'u bozmuyorum
+
+    // Next.js'te pending yok — API bozulmaması için false veriyoruz
+    const isPending = false;
 
     return (
       <Link
@@ -27,13 +30,13 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkCompatProps>(
         className={cn(
           className,
           isActive && activeClassName,
-          isPending && pendingClassName,
+          isPending && pendingClassName
         )}
       >
         {children}
       </Link>
     );
-  },
+  }
 );
 
 NavLink.displayName = "NavLink";
