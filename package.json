@@ -26,7 +26,7 @@
     "prettier:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "typecheck": "turbo run typecheck",
 
-    // ❗ HUSKY'Yİ KAPATTIK → VERCEL HATASINI ÇÖZÜYOR
+
     "prepare": "echo 'skip husky on vercel'",
 
     "test": "turbo run test"
