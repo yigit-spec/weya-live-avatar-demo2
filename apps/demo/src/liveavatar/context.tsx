@@ -48,10 +48,10 @@ type LiveAvatarContextProviderProps = {
 
 const useSessionState = (sessionRef: React.RefObject<LiveAvatarSession>) => {
   const [sessionState, setSessionState] = useState<SessionState>(
-    sessionRef.current?.state || SessionState.INACTIVE
+    sessionRef.current?.state || SessionState.INACTIVE,
   );
   const [connectionQuality, setConnectionQuality] = useState<ConnectionQuality>(
-    sessionRef.current?.connectionQuality || ConnectionQuality.UNKNOWN
+    sessionRef.current?.connectionQuality || ConnectionQuality.UNKNOWN,
   );
   const [isStreamReady, setIsStreamReady] = useState<boolean>(false);
 
@@ -73,7 +73,7 @@ const useSessionState = (sessionRef: React.RefObject<LiveAvatarSession>) => {
 
     sessionRef.current.on(
       SessionEvent.SESSION_CONNECTION_QUALITY_CHANGED,
-      setConnectionQuality
+      setConnectionQuality,
     );
   }, [sessionRef]);
 
@@ -83,7 +83,7 @@ const useSessionState = (sessionRef: React.RefObject<LiveAvatarSession>) => {
 const useVoiceChatState = (sessionRef: React.RefObject<LiveAvatarSession>) => {
   const [isMuted, setIsMuted] = useState(true);
   const [voiceChatState, setVoiceChatState] = useState<VoiceChatState>(
-    sessionRef.current?.voiceChat.state || VoiceChatState.INACTIVE
+    sessionRef.current?.voiceChat.state || VoiceChatState.INACTIVE,
   );
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const useVoiceChatState = (sessionRef: React.RefObject<LiveAvatarSession>) => {
 
     sessionRef.current.voiceChat.on(
       VoiceChatEvent.STATE_CHANGED,
-      setVoiceChatState
+      setVoiceChatState,
     );
   }, [sessionRef]);
 
@@ -143,7 +143,7 @@ export const LiveAvatarContextProvider = ({
   };
 
   const sessionRef = useRef<LiveAvatarSession>(
-    new LiveAvatarSession(sessionAccessToken, config)
+    new LiveAvatarSession(sessionAccessToken, config),
   );
 
   const { sessionState, isStreamReady, connectionQuality } =
@@ -189,7 +189,10 @@ export const LiveAvatarContextProvider = ({
 
     return () => {
       session.off(AgentEventsEnum.USER_TRANSCRIPTION, handleUserTranscription);
-      session.off(AgentEventsEnum.AVATAR_TRANSCRIPTION, handleAvatarTranscription);
+      session.off(
+        AgentEventsEnum.AVATAR_TRANSCRIPTION,
+        handleAvatarTranscription,
+      );
     };
   }, [sessionRef]);
 

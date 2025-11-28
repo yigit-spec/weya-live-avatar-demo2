@@ -13,7 +13,13 @@ const LiveAvatarSessionComponent: React.FC<{
   onSessionStopped: () => void;
 }> = ({ onSessionStopped }) => {
   const [message, setMessage] = useState("");
-  const { sessionState, isStreamReady, startSession, stopSession, attachElement } = useSession();
+  const {
+    sessionState,
+    isStreamReady,
+    startSession,
+    stopSession,
+    attachElement,
+  } = useSession();
   const { sendMessage } = useTextChat("FULL");
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -38,7 +44,6 @@ const LiveAvatarSessionComponent: React.FC<{
 
   return (
     <div className="weya-session-wrapper">
-
       {/* Video Area */}
       <div className="weya-video-frame">
         <video
